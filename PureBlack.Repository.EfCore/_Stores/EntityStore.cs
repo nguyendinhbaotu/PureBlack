@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PureBlack.Core;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -33,6 +34,13 @@ namespace PureBlack.Repository.EfCore
             return GenericResult.Success;
         }
 
+        public async Task<GenericResult> CreateAsync(IEnumerable<TEntity> entities)
+        {
+            Context.AddRange(entities);
+            await Context.SaveChangesAsync();
+            return GenericResult.Success;
+        }
+
         public async Task<GenericResult> UpdateAsync(TEntity entity)
         {
             Context.Update(entity);
@@ -40,9 +48,23 @@ namespace PureBlack.Repository.EfCore
             return GenericResult.Success;
         }
 
+        public async Task<GenericResult> UpdateAsync(IEnumerable<TEntity> entities)
+        {
+            Context.UpdateRange(entities);
+            await Context.SaveChangesAsync();
+            return GenericResult.Success;
+        }
+
         public async Task<GenericResult> DeleteAsync(TEntity entity)
         {
             Context.Remove(entity);
+            await Context.SaveChangesAsync();
+            return GenericResult.Success;
+        }
+
+        public async Task<GenericResult> DeleteAsync(IEnumerable<TEntity> entities)
+        {
+            Context.RemoveRange(entities);
             await Context.SaveChangesAsync();
             return GenericResult.Success;
         }
@@ -57,7 +79,7 @@ namespace PureBlack.Repository.EfCore
         //    return Context.Set<TEntity>().Include(navigationPropertyPath);
         //}
 
-        public IQueryable<TEntity> Include<TProperty>(params Expression<Func<TEntity, TProperty>>[] funcSelectedProperties) where TProperty : class
+        public IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] funcSelectedProperties)
         {
             IQueryable<TEntity> query = Context.Set<TEntity>();
 

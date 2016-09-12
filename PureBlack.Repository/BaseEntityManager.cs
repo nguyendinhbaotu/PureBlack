@@ -19,18 +19,18 @@ namespace PureBlack.Repository
             Store = store;
         }
 
-        public virtual async Task<GenericResult> CreateAsync(TEntity claim)
+        public virtual async Task<GenericResult> CreateAsync(TEntity entity)
         {
-            return await Store.CreateAsync(claim);
+            return await Store.CreateAsync(entity);
         }
-        public virtual async Task<GenericResult> UpdateAsync(TEntity claim)
+        public virtual async Task<GenericResult> UpdateAsync(TEntity entity)
         {
-            return await Store.UpdateAsync(claim);
+            return await Store.UpdateAsync(entity);
         }
 
-        public virtual async Task<GenericResult> DeleteAsync(TEntity claim)
+        public virtual async Task<GenericResult> DeleteAsync(TEntity entity)
         {
-            return await Store.DeleteAsync(claim);
+            return await Store.DeleteAsync(entity);
         }
 
         //public IQueryable<TEntity> Load()
@@ -43,7 +43,7 @@ namespace PureBlack.Repository
         //    return Store.LoadAndInclude(navigationPropertyPath);
         //}
 
-        public IQueryable<TEntity> Include<TProperty>(params Expression<Func<TEntity, TProperty>>[] funcSelectedProperties) where TProperty : class
+        public IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] funcSelectedProperties)
         {
             return Store.Include(funcSelectedProperties);
         }
