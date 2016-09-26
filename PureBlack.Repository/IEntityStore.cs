@@ -10,7 +10,7 @@ namespace PureBlack.Repository
     public interface IEntityStore<TEntity> : IDisposable
         where TEntity : class
     {
-        IQueryable<TEntity> Entities { get; }
+        //IQueryable<TEntity> Entities { get; }
 
         Task<GenericResult> CreateAsync(TEntity entity);
 
@@ -28,7 +28,8 @@ namespace PureBlack.Repository
 
         //IQueryable<TEntity> LoadAndInclude<TProperty>(Expression<Func<TEntity, TProperty>> navigationPropertyPath);
 
-        IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] funcSelectedProperties);
+        IQueryable<TEntity> Load();
+        IQueryable<TEntity> LoadAndInclude(params Expression<Func<TEntity, object>>[] funcSelectedProperties);
 
         //IQueryable<TEntity> FindByIncluding(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, IComparable>>[] funcSelectedProperties);
     }

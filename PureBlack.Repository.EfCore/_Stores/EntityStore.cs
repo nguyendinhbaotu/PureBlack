@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PureBlack.Core;
 using System;
 using System.Collections.Generic;
@@ -79,9 +80,14 @@ namespace PureBlack.Repository.EfCore
         //    return Context.Set<TEntity>().Include(navigationPropertyPath);
         //}
 
-        public IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] funcSelectedProperties)
+        public IQueryable<TEntity> Load()
         {
-            IQueryable<TEntity> query = Context.Set<TEntity>();
+            return Context.Set<TEntity>();
+        }
+
+        public IQueryable<TEntity> LoadAndInclude(params Expression<Func<TEntity, object>>[] funcSelectedProperties)
+        {
+            IQueryable<TEntity> query = Load();
 
             foreach (var funcSelectedProperty in funcSelectedProperties)
             {
@@ -102,6 +108,7 @@ namespace PureBlack.Repository.EfCore
 
         //    return query;
         //}
+
         #region IDisposable Support
 
         private bool _disposed = false;

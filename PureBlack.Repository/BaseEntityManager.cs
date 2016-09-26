@@ -12,7 +12,7 @@ namespace PureBlack.Repository
     {
         protected TEntityStore Store { get; set; }
 
-        public IQueryable<TEntity> Entities => Store.Entities;
+        //public IQueryable<TEntity> Entities => Store.Entities;
 
         public EntityManager(TEntityStore store)
         {
@@ -42,10 +42,14 @@ namespace PureBlack.Repository
         //{
         //    return Store.LoadAndInclude(navigationPropertyPath);
         //}
-
-        public IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] funcSelectedProperties)
+        public IQueryable<TEntity> Load()
         {
-            return Store.Include(funcSelectedProperties);
+            return Store.Load();
+        }
+
+        public IQueryable<TEntity> LoadAndInclude(params Expression<Func<TEntity, object>>[] funcSelectedProperties)
+        {
+            return Store.LoadAndInclude(funcSelectedProperties);
         }
     }
 }
