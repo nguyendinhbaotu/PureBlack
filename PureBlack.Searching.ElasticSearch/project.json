@@ -1,0 +1,17 @@
+﻿{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "Microsoft.Extensions.Options": "1.0.0",
+    "NEST": "2.4.6",
+    "NETStandard.Library": "1.6.0",
+    "Newtonsoft.Json": "9.0.1",
+    "PureBlack.Searching": "1.0.0-*"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}
